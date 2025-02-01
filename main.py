@@ -42,7 +42,7 @@ def ask_question(question, financials_text):
     return completion.choices[0].message.content
 
 # Streamlit UI
-st.title("📊 Financial Analysis")
+st.title("📊 Financial statements")
 
 # Input for stock ticker
 ticker = st.text_input("Enter Financial Ticker (e.g., NVDA, AAPL, TSLA):")
