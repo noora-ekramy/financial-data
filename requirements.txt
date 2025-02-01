@@ -2,3 +2,4 @@ streamlit
 pandas
 yahooquery
 openai
+python-dotenv
