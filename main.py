@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 # Set up OpenAI client
-client = OpenAI(api_key=api_key)
+client = OpenAI(api_key="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")
 # Function to fetch financial data
 def get_financial_data(ticker):
     """Fetch financial statements for a given stock ticker."""
