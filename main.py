@@ -42,10 +42,10 @@ def ask_question(question, financials_text):
     return completion.choices[0].message.content
 
 # Streamlit UI
-st.title("📊 Stock Financial Analysis")
+st.title("📊 Financial Analysis")
 
 # Input for stock ticker
-ticker = st.text_input("Enter Stock Ticker (e.g., NVDA, AAPL, TSLA):")
+ticker = st.text_input("Enter Financial Ticker (e.g., NVDA, AAPL, TSLA):")
 
 # Initialize session state to keep financial data sticky
 if "financials_loaded" not in st.session_state:
