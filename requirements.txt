@@ -3,3 +3,6 @@ pandas
 yahooquery
 openai
 python-dotenv
+langchain
+langchain-community
+langchain_mistralai
