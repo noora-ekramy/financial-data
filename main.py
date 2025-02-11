@@ -4,12 +4,13 @@ from yahooquery import Ticker
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-
+from financial_model_api import *
 # Load environment variables
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 # Set up OpenAI client
 client = OpenAI(api_key=api_key)
+
 # Function to fetch financial data
 def get_financial_data(ticker):
     """Fetch financial statements for a given stock ticker."""
@@ -19,33 +20,24 @@ def get_financial_data(ticker):
     cash_flow = stock.cash_flow()
     return income_statement, balance_sheet, cash_flow
 
-# Function to send data + question to OpenAI API
-def ask_question(question, financials_text):
-    """Send financial data and user question to OpenAI API."""
-    prompt = f"""
-    The following is the financial data for a stock:
-
-    {financials_text}
-
-    Question: {question}
-    Answer:
-    """
-    
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "system", "content": "You are a financial analyst. Answer user questions based on the given financial data."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-
-    return completion.choices[0].message.content
-
 # Streamlit UI
-st.title("📊 Financial statements")
+st.title("📊 Financial Statements")
 
 # Input for stock ticker
 ticker = st.text_input("Enter Financial Ticker (e.g., NVDA, AAPL, TSLA):")
+
+# Model selection dropdown
+model_name = st.selectbox(
+    "Choose a model:",
+    [
+        "gpt-4o", 
+        "Meta_Llama_3_8B_Instruct", 
+        "Meta_Llama_3dot3_70B_Instruct_Turbo", 
+        "Meta_Llama_3dot3_70B_Instruct", 
+        "Mistral_Small_24B_Instruct_2501"
+    ],
+    index=0  # Default to gpt-4o
+)
 
 # Initialize session state to keep financial data sticky
 if "financials_loaded" not in st.session_state:
@@ -93,10 +85,11 @@ if st.session_state.financials_loaded:
     # Input box for user question
     user_question = st.text_area("Ask a question about this financial data:")
 
-    # Button to send data & question to OpenAI API
+    # Button to send data & question to the selected model
     if st.button("Analyze Data"):
         if user_question:
-            answer = ask_question(user_question, st.session_state.financials_text)
+              # Import the updated function
+            answer = ask_question(user_question, st.session_state.financials_text, model_name)
             st.subheader("📢 Analysis")
             st.write(answer)
         else:
