@@ -21,7 +21,59 @@ def get_financial_data(ticker):
     return income_statement, balance_sheet, cash_flow
 
 # Streamlit UI
-st.title("📊 Financial Statements")
+
+st.markdown("""
+    <style>
+    html, body, .stApp {
+        background-color: #041317; 
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .stApp {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    .tagline {
+        font-size: 20px;
+        font-weight: bold;
+        color: #a4ffff;
+        text-align: center;
+        margin-top: -10px;
+    }
+    .subtagline {
+        font-size: 14px;
+        color: #fcfcfc;
+        text-align: center;
+        padding:20px;
+        margin-bottom: 20px;
+    }
+     .header {
+        font-size: 39px;
+        font-weight: bold;
+        color: #65daff;
+        text-align: center;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+col1, col2 = st.columns([1, 5]) 
+
+with col1:
+    st.image("youtiva-logo.png", width=100)
+
+with col2:
+    st.title("Youtiva")
+
+st.markdown('<div class="tagline">Stand Out & Excel with Your Unique AI</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtagline">Empowering businesses with tailored AI solutions to streamline operations, boost efficiency, and sustain competitive advantage</div>', unsafe_allow_html=True)
+st.markdown('<div class="header">Financial Statements</div>', unsafe_allow_html=True)
+
+
+
 
 # Input for stock ticker
 ticker = st.text_input("Enter Financial Ticker (e.g., NVDA, AAPL, TSLA):")
